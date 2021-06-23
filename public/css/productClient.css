@@ -1,0 +1,82 @@
+.products {}
+
+.products.is-gapless>.column {
+    height: min-content;
+    padding: 2vw !important;
+}
+
+.product-on {
+    background-color: rgb(189, 11, 11);
+    color: white;
+    height: 117px !important;
+}
+
+.products .column div:first-child {
+    border: 1px solid gray;
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+    overflow: hidden;
+}
+
+.products .column div:hover {
+    opacity: 1;
+}
+
+.product-img {
+    height: 91px;
+    width: 100%;
+    transition: height 0.2s;
+    position: relative;
+}
+
+.products .column div:first-child div img {
+    object-fit: contain;
+    object-position: center center;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.product-add div {
+    height: 117px !important;
+    cursor: pointer;
+    transition: background-color 1s;
+    user-select: none;
+    border: 1px dashed rgb(61, 61, 61) !important;
+}
+
+.product-add div:hover {
+    transition: background-color 1s;
+    background-color: rgba(33, 117, 156, 0.486);
+    color: white;
+}
+
+.product-on .btn-square {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    padding: 0;
+    padding-top: 3px;
+}
+
+#productInfo {
+    text-align: left;
+    padding: 1vw;
+}
+
+.btn-ver {
+    padding: 1px 0px;
+    bottom: 0;
+    position: absolute;
+    background-color: white;
+    color: black;
+    width: 50%;
+    text-align: center;
+    border: 1px dashed red;
+}
+
+.button {
+    width: 50%;
+    height: auto;
+}

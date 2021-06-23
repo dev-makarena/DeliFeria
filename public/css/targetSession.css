@@ -1,0 +1,18 @@
+.targetSession {
+    background-color: rgba(0, 0, 0, 0.562);
+    padding: 2vw;
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 2%;
+}
+
+.targetSession form {
+    display: grid;
+}
+
+.targetSession .btn-square {
+    width: 100%;
+    outline: none;
+    border: none;
+}

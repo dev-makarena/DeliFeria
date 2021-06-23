@@ -1,0 +1,12 @@
+#carrito {
+    max-height: 400px;
+    padding: 2vw !important;
+    overflow-y: scroll;
+}
+
+.items-car {
+    background-color: transparent !important;
+}
+#carrito table {
+    width: 100%;
+}

@@ -1,0 +1,162 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    /*
+     padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    */
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: -moz-hidden-unscrollable;
+}
+
+input {
+    outline: none;
+}
+
+.hero {
+    height: 100%;
+    width: 100%;
+}
+
+.hero-head {}
+
+.hero-body {
+    height: auto;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.columns {
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    width: auto;
+}
+
+.column {
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+}
+
+.hero-section {
+    width: auto;
+    height: auto;
+}
+
+.centrar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centrar-full {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.back-class {
+    background-position: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+a {
+    outline: none !important;
+}
+
+.m {
+    border: 3px solid red;
+}
+
+h1 {
+    font-size: 60px;
+    line-height: 60px;
+    letter-spacing: 0.1vw;
+}
+
+h2 {
+    font-size: 3vw;
+    line-height: 3.1vw;
+}
+
+h3 {
+    font-size: 40px;
+    line-height: 40px;
+}
+
+h4 {
+    font-size: 24px;
+    line-height: 24px;
+}
+
+h6 {
+    font-size: 19px;
+    line-height: 19px;
+}
+
+strong {
+    color: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.strong {
+    font-weight: bolder;
+}
+
+@media(max-width:767px) {
+    html {
+        padding-top: 0px;
+    }
+    h1 {
+        /*ANTES 60PX*/
+        font-size: 40px;
+        line-height: 40px;
+        letter-spacing: 0.1vw;
+    }
+    h2 {
+        font-size: 25px;
+        line-height: 25px;
+    }
+    h3 {
+        font-size: 20px;
+        line-height: 20px;
+    }
+    h4 {
+        font-size: 17px;
+        line-height: 17px;
+    }
+    h6 {
+        font-size: 19px;
+        line-height: 19px;
+    }
+    .centrar-m {
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .ctm {
+        text-align: center;
+    }
+    .jtm {
+        text-align: justify;
+    }
+    .itm {
+        text-align: left;
+    }
+}
