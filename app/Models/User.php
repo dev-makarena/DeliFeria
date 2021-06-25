@@ -58,4 +58,21 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function role(){
+
+        return $this->belongsTo('App\Models\Role');
+    }
+
+
+    public function esVendedor(){
+
+        if($this->role->nombre_rol=='vendedor'){
+
+            return true;
+        }
+
+        return false;
+    }
 }

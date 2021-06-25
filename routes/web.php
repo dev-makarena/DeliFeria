@@ -16,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    $user=Auth::user();
+    if (isset($user)){
+        if($user->esVendedor()){
+            echo "Eres Vendedor";
+        }else{
+            echo "Eres Cliente";
+        }
+    }
+
     return view('welcome');
 });
 
