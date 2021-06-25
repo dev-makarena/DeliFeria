@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $user=Auth::user();
-    if (isset($user)){
-        if($user->esVendedor()){
+    $user = Auth::user();
+    if (isset($user)) {
+        if ($user->esVendedor()) {
             echo "Eres Vendedor";
-        }else{
+        } else {
             echo "Eres Cliente";
         }
     }
@@ -47,11 +47,11 @@ Route::get('/upd', function () {
 
 
 Route::get('/test', function () {
-    return DB::table('products')->get();
+    // return DB::table('products')->get();
     // return DB::table('users')
-    //     ->where('id', '=', 12)
+    //     ->where('id', '=', 2)
     //     ->update([
-    //         "type" => 1,
+    //         "role_id" => 2,
     //         // "active" => "$request->input('active')",
     //         // "order" => $request->input('order'),
     //     ]);

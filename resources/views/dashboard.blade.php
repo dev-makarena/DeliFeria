@@ -14,7 +14,7 @@
 
 
     <div class='columns is-mobile is-gapless is-multiline products'>
-        @if(Auth::user()->type==1)
+        @if(Auth::user()->role_id==2)
 
         <div class='column is-2-fullhd is-2-desktop  is-6-tablet  is-6-mobile  product-add'>
             <div class='centrar-full' onclick="formProduct(true);eg1OpenModal('eg1_modal');">
@@ -30,7 +30,7 @@
                 <div class="product-img">
                     <img class="centrar" src="{{ $product->img_url }}" height="100%" alt="">
                     <a onclick="cargarVer('{{ $product->id }}')" class="btn-ver">Ver</a>
-                    @if(Auth::user()->type==1)
+                    @if(Auth::user()->role_id==2)
                     <form method='get' action="{{ route('product.del') }}">
                         @csrf
                         <input type="hidden" name="idDelete" value="{{ $product->id }}"> <br>
@@ -50,7 +50,7 @@
         <a onclick="eg1CloseModal(`eg1_modal`)" class="close_modal_eg1">x</a>
         <div id="eg1_cont" class="eg1_cont">
             <div>
-                @if(Auth::user()->type==1)
+                @if(Auth::user()->role_id==2)
 
                 <form method='post' action="{{ route('product.add') }}" id="formProduct">
                     @csrf
