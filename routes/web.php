@@ -37,6 +37,7 @@ Route::get('/upd', function () {
 
 
 Route::get('/test', function () {
+    return DB::table('products')->get();
     // return DB::table('users')
     //     ->where('id', '=', 12)
     //     ->update([

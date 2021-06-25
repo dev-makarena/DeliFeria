@@ -28,7 +28,7 @@
             <div class="product-on">
                 <p class="text-center">{{ $product->name }}</p>
                 <div class="product-img">
-                    <img class="centrar" src="{{ $product->img_url }}" width="100px" alt="">
+                    <img class="centrar" src="{{ $product->img_url }}" height="100%" alt="">
                     <a onclick="cargarVer('{{ $product->id }}')" class="btn-ver">Ver</a>
                     @if(Auth::user()->type==1)
                     <form method='get' action="{{ route('product.del') }}">
@@ -61,8 +61,7 @@
                     <input type="text" name="img_url" placeholder="imagen url"> <br>
                     <!-- <input type="check" name="active" placeholder="activo"> <br>
                 <input type="number" name="order" placeholder="orden"> <br> -->
-
-                    <button type=" submit" class="btn-solid"> Buscar</button>
+                    <button type=" submit" class="btn-solid">[+]Agregar</button>
                 </form>
                 <form method='get' action="{{ route('product.edit') }}" id="editProduct">
                     @csrf
@@ -73,7 +72,7 @@
                     <input type="number" name="price" placeholder="precio"> <br>
                     <input type="text" name="img_url" placeholder="imagen url"> <br>
 
-                    <button type="submit" class="btn-solid"> Buscar</button>
+                    <button type="submit" class="btn-solid">Actualizar</button>
                 </form>
                 @endif
                 <div id="productInfo">
