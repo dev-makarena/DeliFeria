@@ -9,26 +9,36 @@
         </img>
     </div>
 
+    @if(Auth::user()->role_id==2)
+    @foreach ($pedidos as $pedido)
+    <p>{{ $pedido->nombre_cliente }}</p>
+    <p>{{ $pedido->estado }}</p>
+    <p>{{ $pedido->created_at }}</p>
 
+    @endforeach
+    @endif
 
 
 
     <div class='columns is-mobile is-gapless is-multiline products'>
         @if(Auth::user()->role_id==2)
 
-        <div class='column is-2-fullhd is-2-desktop  is-6-tablet  is-6-mobile  product-add'>
+        <div class='column is-2-fullhd is-2-desktop  is-4-tablet  is-4-mobile  product-add'>
             <div class='centrar-full' onclick="formProduct(true);eg1OpenModal('eg1_modal');">
                 <p class='_title-1'>+</p>
             </div>
         </div>
         @endif
         @foreach ($data as $product)
-        <div class='column is-2-fullhd is-2-desktop  is-3-tablet  is-3-mobile '>
+        <div class='column is-2-fullhd is-2-desktop  is-4-tablet  is-4-mobile '>
 
             <div class="product-on">
-                <p class="text-center">{{ $product->name }}</p>
                 <div class="product-img">
-                    <img class="centrar" src="{{ $product->img_url }}" height="100%" alt="">
+                    <div style="width:100%;height:100px;">
+                        <img class="centrar" src="{{ $product->img_url }}" height="100%" alt="">
+                    </div>
+                    <p class="text-center">{{ $product->name }}</p>
+                    <p class="text-center" style="height: 32px; overflow: hidden;">{{ $product->description }}</p>
                     <a onclick="cargarVer('{{ $product->id }}')" class="btn-ver">Ver</a>
                     @if(Auth::user()->role_id==2)
                     <form method='get' action="{{ route('product.del') }}">
@@ -74,25 +84,24 @@
 
                     <button type="submit" class="btn-solid">Actualizar</button>
                 </form>
-                <div id="productInfo">
-                    <p><strong>Nombre:</strong><span id="nameInfo"></span></p>
-                    <p><strong>precio:</strong><span id="priceInfo"></span></p>
-                    <img src="" alt="" id="imgInfo" class="centrar">
-                    <p><strong>Descripción:</strong><span id="descriptionInfo"></span></p>
-                    <a class="btn-solid" onclick="editProduct(true);eg1OpenModal('eg1_modal');">Modificar</a>
-                </div>
+
                 @endif
-                @if(Auth::user()->role_id==1)
-                <div id="productInfo">
+                <div id="productInfo2">
+                    @if(Auth::user()->role_id==1)
                     <input type="hidden" name="idproductcarrito" value="" id="idproductcarrito"> <br>
+                    @endif
                     <p><strong>Nombre:</strong><span id="nameInfo"></span></p>
                     <p><strong>precio:</strong><span id="priceInfo"></span></p>
                     <img src="" alt="" id="imgInfo" class="centrar">
                     <p><strong>Descripción:</strong><span id="descriptionInfo"></span></p>
+                    @if(Auth::user()->role_id==1)
                     <input type="number" name="cantidad" id="cantidad" placeholder="cantidad" style="margin:10px 0 10px 0" size>
                     <a class="btn-solid" onclick="agregarCarrito()">Agregar</a>
+                    @endif
+                    @if(Auth::user()->role_id==2)
+                    <a class="btn-solid" onclick="editProduct(true);eg1OpenModal('eg1_modal');">Modificar</a>
+                    @endif
                 </div>
-                @endif
 
             </div>
         </div>
@@ -101,26 +110,24 @@
 
     <script>
         // var toAdd = [];
-
         // localStorage.setItem("carrito", JSON.stringify(toAdd));
-
         // var lleno = JSON.parse(localStorage.getItem("carrito"));
 
 
         function agregarCarrito() {
 
-            if(localStorage.getItem("carrito") === null){
+            if (localStorage.getItem("carrito") === null) {
                 let carrito = [];
-                localStorage.setItem("carrito", JSON.stringify(carrito) )
+                localStorage.setItem("carrito", JSON.stringify(carrito))
             }
 
             let producto = {
-                id:$('#idproductcarrito').val(),
-                cantidad:$('#cantidad').val(),
-                name:$('#nameInfo').text(),
-                price:$('#priceInfo').text(),
-                description:$('#descriptionInfo').text(),
-                img:$('#imgInfo').prop('src')
+                id: $('#idproductcarrito').val(),
+                cantidad: $('#cantidad').val(),
+                name: $('#nameInfo').text(),
+                price: $('#priceInfo').text(),
+                description: $('#descriptionInfo').text(),
+                img: $('#imgInfo').prop('src')
             }
 
             var products_list = JSON.parse(localStorage.getItem('carrito'));
@@ -151,7 +158,7 @@
                     $('#idedit').attr('value', id);
 
                     clearModal();
-                    let info = $('#productInfo');
+                    let info = $('#productInfo2');
                     if (info.css("display") == "none") {
                         info.css("display", "block");
                     }
@@ -193,11 +200,13 @@
             let form = $('#formProduct');
             form.css("display", "none");
 
-            let info = $('#productInfo');
-            info.css("display", "none");
+            let info = $('#productInfo2');
+            info.attr("style", "display:none !important");
+
             let edit = $('#editProduct');
             edit.css("display", "none");
         }
+        clearModal();
     </script>
 
 

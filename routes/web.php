@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Pedidos;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $data = Product::orderBy('id', 'desc')->get();
-    return view('dashboard', compact('data'));
+    $pedidos = Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+
+    // $pedidos = Pedidos::where('id', '=', '')->orderBy('id', 'desc')->get();
+    return view('dashboard', compact('data', 'pedidos'));
 
     // return view('dashboard');
 })->name('dashboard');
@@ -48,6 +53,8 @@ Route::get('/upd', function () {
 
 Route::get('/test', function () {
     // return DB::table('products')->get();
+    // return Pedidos::all();
+    return Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
     // return DB::table('users')
     //     ->where('id', '=', 2)
     //     ->update([
@@ -61,3 +68,5 @@ Route::get('/productdel', [App\Http\Controllers\ProductController::class, 'delet
 Route::post('/productadd', [App\Http\Controllers\ProductController::class, 'addProduct'])->name('product.add');
 Route::get('/productget', [App\Http\Controllers\ProductController::class, 'getProduct'])->name('product.get');
 Route::get('/productedit', [App\Http\Controllers\ProductController::class, 'editProduct'])->name('product.edit');
+
+Route::post('/pedidoadd', [App\Http\Controllers\pedidosController::class, 'addPedido'])->name('pedido.add');
