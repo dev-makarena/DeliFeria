@@ -117,6 +117,9 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+                @if(Auth::user()->role_id==1)
+                    <img src="image/carrito.png" alt="Carrito Compras" width="30" height="30" onclick="verCarrito()"/>
+                @endif
             </div>
 
             <!-- Hamburger -->
@@ -211,3 +214,62 @@
         </div>
     </div>
 </nav>
+
+<div id="eg1_modal_carrito" class="eg1_modal" style="position: absolute;
+                                                         top: 5%;">
+    <a onclick="eg1CloseModal(`eg1_modal_carrito`)" class="close_modal_eg1">x</a>
+    <div id="eg1_cont" class="eg1_cont">
+        <div>
+            <div id="productInfo">
+
+            </div>
+        </div>
+        <a class="btn-solid" onclick="limpiarCarrito()">Limpiar</a> <a class="btn-solid" onclick="">Pagar</a>
+    </div>
+</div>
+
+<script>
+
+    function limpiarCarrito() {
+        localStorage.removeItem('carrito');
+        eg1CloseModal(`eg1_modal_carrito`);
+        alert('Se eliminaran los productos del carro de compras.');
+
+    }
+    function verCarrito() {
+
+        if(localStorage.getItem('carrito') === null){
+            alert('No hay productos en el carro de compras.');
+            return;
+        }
+
+        var products_list = JSON.parse(localStorage.getItem('carrito'));
+
+        if(products_list.length === 0){
+             alert('No hay productos en el carro de compras.');
+             return;
+        }
+
+        let html = '';
+        let precio = 0;
+
+        for (let producto of products_list){
+            let pp = producto.price.replace(".","").replace("$","");
+            precio = precio + ( parseInt(pp) *  parseInt(producto.cantidad) );
+
+            html = html + '<img width="50" height="50" src="'+producto.img+'" alt="" id="imgInfo" class="centrar">'+
+            '<p><strong>Nombre:</strong><span>'+producto.name+'</span></p>' +
+            '<p><strong>precio:</strong><span>'+producto.price+'</span></p>'+
+            //'<p><strong>Descripción:</strong><span>'+producto.description+'</span></p>'+
+            '<p><strong>Cantidad:</strong><span>'+producto.cantidad+'</span></p>';
+        }
+
+            html = html +'<br><p><strong>Total a Pagar :</strong><span> $'+precio.toLocaleString().split(',')[0]+'</span></p>';
+
+        $('#productInfo').html(html);
+
+        eg1OpenModal('eg1_modal_carrito');
+
+    }
+
+</script>

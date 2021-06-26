@@ -46,7 +46,7 @@
     </div>
 
 
-    <div id="eg1_modal" class="eg1_modal">
+    <div id="eg1_modal" class="eg1_modal" style="top: 10%;">
         <a onclick="eg1CloseModal(`eg1_modal`)" class="close_modal_eg1">x</a>
         <div id="eg1_cont" class="eg1_cont">
             <div>
@@ -74,15 +74,26 @@
 
                     <button type="submit" class="btn-solid">Actualizar</button>
                 </form>
-                @endif
                 <div id="productInfo">
                     <p><strong>Nombre:</strong><span id="nameInfo"></span></p>
                     <p><strong>precio:</strong><span id="priceInfo"></span></p>
                     <img src="" alt="" id="imgInfo" class="centrar">
                     <p><strong>Descripción:</strong><span id="descriptionInfo"></span></p>
                     <a class="btn-solid" onclick="editProduct(true);eg1OpenModal('eg1_modal');">Modificar</a>
-
                 </div>
+                @endif
+                @if(Auth::user()->role_id==1)
+                <div id="productInfo">
+                    <input type="hidden" name="idproductcarrito" value="" id="idproductcarrito"> <br>
+                    <p><strong>Nombre:</strong><span id="nameInfo"></span></p>
+                    <p><strong>precio:</strong><span id="priceInfo"></span></p>
+                    <img src="" alt="" id="imgInfo" class="centrar">
+                    <p><strong>Descripción:</strong><span id="descriptionInfo"></span></p>
+                    <input type="number" name="cantidad" id="cantidad" placeholder="cantidad" style="margin:10px 0 10px 0" size>
+                    <a class="btn-solid" onclick="agregarCarrito()">Agregar</a>
+                </div>
+                @endif
+
             </div>
         </div>
     </div>
@@ -95,6 +106,30 @@
 
         // var lleno = JSON.parse(localStorage.getItem("carrito"));
 
+
+        function agregarCarrito() {
+
+            if(localStorage.getItem("carrito") === null){
+                let carrito = [];
+                localStorage.setItem("carrito", JSON.stringify(carrito) )
+            }
+
+            let producto = {
+                id:$('#idproductcarrito').val(),
+                cantidad:$('#cantidad').val(),
+                name:$('#nameInfo').text(),
+                price:$('#priceInfo').text(),
+                description:$('#descriptionInfo').text(),
+                img:$('#imgInfo').prop('src')
+            }
+
+            var products_list = JSON.parse(localStorage.getItem('carrito'));
+            products_list.push(producto);
+            localStorage.setItem("carrito", JSON.stringify(products_list));
+
+            eg1CloseModal('eg1_modal');
+
+        }
 
         function cargarVer(id) {
             $('.btn-ver').addClass('button is-loading');
@@ -112,6 +147,7 @@
                     $('#descriptionInfo').text(data[0].description);
                     $('#imgInfo').attr('src', data[0].img_url);
 
+                    $('#idproductcarrito').attr('value', id);
                     $('#idedit').attr('value', id);
 
                     clearModal();
