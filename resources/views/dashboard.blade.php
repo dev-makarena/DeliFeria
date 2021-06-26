@@ -9,16 +9,22 @@
         </img>
     </div>
 
+
+
     @if(Auth::user()->role_id==2)
-    @foreach ($pedidos as $pedido)
-    <p>{{ $pedido->nombre_cliente }}</p>
-    <p>{{ $pedido->estado }}</p>
-    <p>{{ $pedido->created_at }}</p>
 
-    @endforeach
+    <div class="publicidad">
+        @foreach ($pedidos as $pedido)
+
+        <div style="background-color:black; margin:10px;width:100px; height:100px; color:white;">
+            <p>{{ $pedido->nombre_cliente }}</p>
+            <p>{{ $pedido->estado }}</p>
+            <p>{{ $pedido->created_at }}</p>
+        </div>
+        @endforeach
+
+    </div>
     @endif
-
-
 
     <div class='columns is-mobile is-gapless is-multiline products'>
         @if(Auth::user()->role_id==2)
@@ -207,6 +213,30 @@
             edit.css("display", "none");
         }
         clearModal();
+
+        $(".publicidad").slick({
+            infinite: true,
+            speed: 300,
+            slidesToShow: 3,
+            adaptiveHeight: true,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: false,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    },
+                },
+            ],
+        });
     </script>
 
 

@@ -25,7 +25,11 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/productClient.css') }}">
-    
+
+    <!-- CARRUSEL -->
+    <link rel="stylesheet" href="{{ asset('slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('slick/slick-theme.css') }}">
+
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('js/modal.js') }}" defer></script>
 
@@ -34,6 +38,8 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ asset('slick/slick.js') }}"></script>
+
 </head>
 
 <body class="font-sans antialiased">
@@ -62,7 +68,6 @@
     @livewireScripts
 
 
-    
 </body>
 
 </html>
