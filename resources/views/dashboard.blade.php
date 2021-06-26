@@ -13,13 +13,52 @@
 
     @if(Auth::user()->role_id==2)
 
-    <div class="publicidad">
+    <div class="pedidos">
         @foreach ($pedidos as $pedido)
 
-        <div style="background-color:black; margin:10px;width:100px; height:100px; color:white;">
+        <div class="slide-pedidos">
             <p>{{ $pedido->nombre_cliente }}</p>
             <p>{{ $pedido->estado }}</p>
             <p>{{ $pedido->created_at }}</p>
+            <p>{{ $pedido->direccion_cliente }}</p>
+            <p>${{ $pedido->precio_total }}</p>
+            <div class="pedidoID" id="pedido{{ $pedido->id }}">
+                <p>Cliente: {{ $pedido->nombre_cliente }}</p>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(json_decode($pedido->productos,false) as $product)
+
+                                    <tr>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->price }}</td>
+                                    </tr>
+                                    @endforeach
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                var pedidos_prod = "{{ $pedido->productos }}";
+
+                $('#pedido{{ $pedido->id }}').css("display", "block");
+            </script>
+
+
         </div>
         @endforeach
 
@@ -214,7 +253,7 @@
         }
         clearModal();
 
-        $(".publicidad").slick({
+        $(".pedidos").slick({
             infinite: true,
             speed: 300,
             slidesToShow: 3,
