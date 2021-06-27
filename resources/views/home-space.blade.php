@@ -1,5 +1,5 @@
 <x-app-layout>
-    @if(Auth::user()->role_id==1)
+    @if(Auth::user()->role_id==2)
     <a class="btn-solid" href="{{ url('dashboard/' . Auth::user()->id) }}">Ver mi tienda</a>
     @endif
 
