@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\MessageDeli;
 use App\Models\Pedidos;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -31,21 +33,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $data = Product::orderBy('id', 'desc')->get();
 
-    if (Auth::user()->role_id == 2) {
-        $pedidos = Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
-    }
-    if (Auth::user()->role_id == 1) {
-        $pedidos = Pedidos::where('id_cliente', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
-    }
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{id}', [App\Http\Controllers\DeliferiaController::class, 'dashboard'])->name('dashboard');
 
-    // $pedidos = Pedidos::where('id', '=', '')->orderBy('id', 'desc')->get();
-    return view('dashboard', compact('data', 'pedidos'));
-
-    // return view('dashboard');
-})->name('dashboard');
+Route::get('/home', function () {
+    $vendedores = User::where('role_id', '=', 2)->orderBy('id', 'desc')->get();
+    return view('home-space', compact('vendedores'));
+})->name('home-space');
 
 
 Route::get('/usr', function () {
@@ -60,6 +54,8 @@ Route::get('/upd', function () {
 Route::get('/test', function () {
     // return DB::table('products')->get();
     // return Pedidos::all();
+    return MessageDeli::all();
+
     // return Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
     // return DB::table('users')
     //     ->where('id', '=', 2)
@@ -78,3 +74,6 @@ Route::get('/productedit', [App\Http\Controllers\ProductController::class, 'edit
 Route::post('/pedidoadd', [App\Http\Controllers\pedidosController::class, 'addPedido'])->name('pedido.add');
 Route::post('/pedidostatus', [App\Http\Controllers\pedidosController::class, 'statusPedido'])->name('pedido.status');
 Route::post('/pedidodelete', [App\Http\Controllers\pedidosController::class, 'deletePedido'])->name('pedido.delete');
+
+
+Route::post('/messagesend', [App\Http\Controllers\MessageDeliController::class, 'sendMessage'])->name('message.send');

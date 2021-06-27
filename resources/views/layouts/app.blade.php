@@ -25,6 +25,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/productClient.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home-space.css') }}">
 
     <!-- CARRUSEL -->
     <link rel="stylesheet" href="{{ asset('slick/slick.css') }}">

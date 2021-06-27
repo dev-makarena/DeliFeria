@@ -1,7 +1,7 @@
 :root {
     --color-a: white !important;
-    --color-b: red;
-    --color-ab: black !important;
+    --color-b: rgb(135, 179, 34);
+    --color-ab: rgb(206, 214, 91) !important;
     --color-bb: white;
 }
 

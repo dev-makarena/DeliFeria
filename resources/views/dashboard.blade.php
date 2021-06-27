@@ -115,6 +115,47 @@
 
 
     @if(Auth::user()->role_id==2)
+    <div class='columns is-mobile is-gapless is-multiline products'>
+
+
+        <div class='column is-6-fullhd is-6-desktop  is-12-tablet  is-12-mobile'>
+            <h2>Mensajes</h2> <br>
+            <p id="messageInfo" style="color: black;
+                    text-align: left;
+                    font-weight: 900;">{{ session('info') }}</p>
+            <div class="message-box" style="display: none;">
+
+                <form method='post' action="{{ route('message.send') }}">
+                    @csrf
+                    <input id="inputIdCliente" style="display:none;" type="hidden" name="idCliente" value="">
+                    <input id="inputIdVendedor" style="display:none;" type="hidden" name="idVendedor" value="">
+                    <input id="inputFrom" style="display:none;" type="hidden" name="from" value="">
+                    <input id="inputTo" style="display:none;" type="hidden" name="to" value="">
+                    <input id="inputStatus" style="display:none;" type="hidden" name="status" value="enviado">
+                    <input id="inputIdPedido" style="display:none;" type="hidden" name="idPedido" value="">
+                    <!-- <input type="text" name="message" required> <br> -->
+                    <textarea id="inputMessage" name="message" style="color:black"></textarea>
+
+                    <button onclick="$('#inputSendMessage').addClass('button is-loading');" id="inputSendMessage" class="btn-square">Elija un pedido</button>
+                </form>
+            </div>
+        </div>
+        <div class='column is-6-fullhd is-6-desktop  is-12-tablet  is-12-mobile'>
+            <h3>Mensajes enviados</h3>
+            <div class="globalMensajes">
+                @foreach($mensajes as $mensaje)
+                <div>
+                    <p class="fecha">{{ $mensaje->created_at }}</p>
+                    <p class="para">{{ $mensaje->to }}</p>
+                    <p class="mensaje">{{ $mensaje->message }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+
+
     <h2>Pedidos</h2>
     <div class="pedidos">
         @forelse ($pedidos as $pedido)
@@ -123,6 +164,8 @@
         <div class="slide-pedidos">
             <p>{{ $pedido->id }}</p>
             <p>{{ $pedido->nombre_cliente }}</p>
+            <p>id cliente:{{ $pedido->id_cliente }}</p>
+
             <p>{{ $pedido->estado }}</p>
             <p>{{ $pedido->created_at }}</p>
             <p>{{ $pedido->direccion_cliente }}</p>
@@ -163,10 +206,15 @@
                 </div>
             </div>
 
+
+
             <div class="btn-pedido">
                 <a id="open{{ $pedido->id }}" class="btn-transparent">Ver</a>
+                <a class="btn-square" onclick="sendMessage('{{ Auth::user()->id }}','{{ Auth::user()->name }}','{{ $pedido->id_cliente }}','{{ $pedido->nombre_cliente }}','{{ $pedido->id }}')">Enviar mensaje</a>
                 <a class="btn-estado" id="status{{ $pedido->id }}" data-id="{{ $pedido->id }}" data-status="{{ $pedido->estado }}">{{ $pedido->estado }}</a>
             </div>
+
+
             <script>
                 $("body").on("click", "#close{{ $pedido->id }}", function() {
                     let pedido = $('#pedido{{ $pedido->id }}');
@@ -238,6 +286,7 @@
                         <img class="centrar" src="{{ $product->img_url }}" height="100%" alt="">
                     </div>
                     <p class="text-center"><strong>{{ $product->name }}</strong></p>
+                    <p class="text-center"><strong>{{ $product->id_seller }}</strong></p>
                     <p class="text-center" style="height: 32px; overflow: hidden;">{{ $product->description }}</p>
                     <a onclick="cargarVer('{{ $product->id }}')" class="btn-ver">Ver</a>
                     @if(Auth::user()->role_id==2)
@@ -431,6 +480,20 @@
                 },
             ],
         });
+
+        function sendMessage(idVendedor, nomVendedor, idCliente, nomCliente, idPedido) {
+            $('#inputIdVendedor').attr("value", idVendedor);
+            $('#inputFrom').attr("value", nomVendedor);
+            $('#inputIdCliente').attr("value", idCliente);
+            $('#inputTo').attr("value", nomCliente);
+            $('#inputIdPedido').attr("value", idPedido);
+            $('#inputMessage').focus();
+            $('#messageInfo').text('Enviar mensaje a ' + nomCliente);
+            $('#inputSendMessage').attr("type", "submit");
+            $('#inputSendMessage').text("Enviar a " + nomCliente);
+
+            $('.message-box').slideDown();
+        }
     </script>
 
 
