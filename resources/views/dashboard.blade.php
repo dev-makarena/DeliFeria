@@ -59,10 +59,18 @@
                 </div>
             </div>
 
+            <div class="btn-pedido">
+                <a id="open{{ $pedido->id }}" class="btn-transparent">Ver</a>
+                <a class="btn-estado">RECIBIR</a>
+            </div>
             <script>
                 $("body").on("click", "#close{{ $pedido->id }}", function() {
                     let pedido = $('#pedido{{ $pedido->id }}');
-                    pedido.hide('slow');
+                    pedido.slideUp('slow');
+                });
+                $("body").on("click", "#open{{ $pedido->id }}", function() {
+                    let pedido = $('#pedido{{ $pedido->id }}');
+                    pedido.slideDown('slow');
                 });
             </script>
 
@@ -144,7 +152,7 @@
                     <input type="hidden" name="idproductcarrito" value="" id="idproductcarrito"> <br>
                     @endif
                     <p><strong>Nombre:</strong><span id="nameInfo"></span></p>
-                    <p><strong>precio:</strong><span id="priceInfo"></span></p>
+                    <p><strong>precio:</strong>$<span id="priceInfo"></span></p>
                     <img src="" alt="" id="imgInfo" class="centrar">
                     <p><strong>Descripción:</strong><span id="descriptionInfo"></span></p>
                     @if(Auth::user()->role_id==1)

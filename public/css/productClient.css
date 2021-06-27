@@ -90,6 +90,7 @@
 }
 
 .pedidoID {
+    display: none;
     background-color: rgb(152, 214, 134);
     height: 100%;
     width: 100%;
@@ -98,7 +99,7 @@
     left: 0;
     color: white;
     padding: 4px;
-    overflow: scroll;
+    overflow: auto;
     font-size: 12px;
 }
 
@@ -109,7 +110,7 @@
 .close_pedido {
     background-color: rgb(109, 179, 89);
     padding: 2px;
-    border-radius:3px ;
+    border-radius: 3px;
     float: right;
     cursor: pointer;
 }
@@ -117,4 +118,27 @@
 .close_pedido:hover {
     background-color: black;
     color: white;
+}
+
+.btn-pedido {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 2px;
+}
+
+.btn-estado {
+    padding: 2px 10px;
+    border: none;
+    outline: none;
+    font-weight: bolder;
+    background-color: rgb(14, 108, 124);
+    color: white;
+}
+
+.btn-estado:hover {
+    border: none;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(46, 0, 0);
 }
