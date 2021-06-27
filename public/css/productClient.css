@@ -97,9 +97,24 @@
     top: 0;
     left: 0;
     color: white;
-    padding: 10px;
+    padding: 4px;
+    overflow: scroll;
+    font-size: 12px;
 }
 
 .pedidoID .table {
     width: 100%;
+}
+
+.close_pedido {
+    background-color: rgb(109, 179, 89);
+    padding: 2px;
+    border-radius:3px ;
+    float: right;
+    cursor: pointer;
+}
+
+.close_pedido:hover {
+    background-color: black;
+    color: white;
 }

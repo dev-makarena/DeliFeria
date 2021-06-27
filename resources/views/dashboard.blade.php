@@ -23,8 +23,9 @@
             <p>{{ $pedido->direccion_cliente }}</p>
             <p>${{ $pedido->precio_total }}</p>
             <div class="pedidoID" id="pedido{{ $pedido->id }}">
-                <p>Cliente: {{ $pedido->nombre_cliente }}</p>
-
+                <p style="float:left;">Cliente: {{ $pedido->nombre_cliente }}</p>
+                <p class="close_pedido" id="close{{ $pedido->id }}">[x]cerrar</p>
+                <hr>
                 <div class="columns">
                     <div class="column">
                         <div class="table-container">
@@ -32,7 +33,10 @@
                                 <thead>
                                     <tr>
                                         <th>Product</th>
-                                        <th>precio</th>
+                                        <th></th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Descripción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,7 +44,10 @@
 
                                     <tr>
                                         <td>{{ $product->name }}</td>
+                                        <td><img src="{{ $product->img }}" alt="{{ $product->name }}" style="height:20px !important;"></td>
+                                        <td>{{ $product->cantidad }}</td>
                                         <td>{{ $product->price }}</td>
+                                        <td>{{ $product->description }}</td>
                                     </tr>
                                     @endforeach
 
@@ -53,9 +60,10 @@
             </div>
 
             <script>
-                var pedidos_prod = "{{ $pedido->productos }}";
-
-                $('#pedido{{ $pedido->id }}').css("display", "block");
+                $("body").on("click", "#close{{ $pedido->id }}", function() {
+                    let pedido = $('#pedido{{ $pedido->id }}');
+                    pedido.hide('slow');
+                });
             </script>
 
 
