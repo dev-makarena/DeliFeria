@@ -5,8 +5,7 @@
         </h2>
     </x-slot>
     <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-        <img src="./image/logo-2.png" style="filter: opacity(.2);" width="100px">
-        </img>
+        <img src="{{ url('image/logo-2.png') }}" style="filter: opacity(.2);" width="100px"></img>
     </div>
 
     @if(Auth::user()->role_id==1)
@@ -210,7 +209,7 @@
 
             <div class="btn-pedido">
                 <a id="open{{ $pedido->id }}" class="btn-transparent">Ver</a>
-                <a class="btn-square" onclick="sendMessage('{{ Auth::user()->id }}','{{ Auth::user()->name }}','{{ $pedido->id_cliente }}','{{ $pedido->nombre_cliente }}','{{ $pedido->id }}')">Enviar mensaje</a>
+                <a class="btn-square" onclick="sendMessage('{{ Auth::user()->id }}','{{ Auth::user()->name }}','{{ $pedido->id_cliente }}','{{ $pedido->nombre_cliente }}','{{ $pedido->id }}')">Mensaje</a>
                 <a class="btn-estado" id="status{{ $pedido->id }}" data-id="{{ $pedido->id }}" data-status="{{ $pedido->estado }}">{{ $pedido->estado }}</a>
             </div>
 

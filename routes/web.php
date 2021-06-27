@@ -37,8 +37,22 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{id}', [App\Http\Controllers\DeliferiaController::class, 'dashboard'])->name('dashboard');
 
 Route::get('/home', function () {
-    $vendedores = User::where('role_id', '=', 2)->orderBy('id', 'desc')->get();
-    return view('home-space', compact('vendedores'));
+    $vendedores = "";
+    $mensajes = "";
+    if (Auth::user()->role_id == 2) {
+        $data = Product::where('id_seller', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $pedidos = Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $mensajes = MessageDeli::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+    }
+    if (Auth::user()->role_id == 1) {
+        $vendedores = User::where('role_id', '=', 2)->orderBy('id', 'desc')->get();
+
+        $mensajes = MessageDeli::where('id_cliente', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+    }
+
+
+
+    return view('home-space', compact('vendedores', 'mensajes'));
 })->name('home-space');
 
 
