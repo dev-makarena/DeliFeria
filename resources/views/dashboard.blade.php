@@ -12,16 +12,19 @@
 
 
     @if(Auth::user()->role_id==2)
-
+    <h2>Pedidos</h2>
     <div class="pedidos">
         @foreach ($pedidos as $pedido)
 
+
         <div class="slide-pedidos">
+            <p>{{ $pedido->id }}</p>
             <p>{{ $pedido->nombre_cliente }}</p>
             <p>{{ $pedido->estado }}</p>
             <p>{{ $pedido->created_at }}</p>
             <p>{{ $pedido->direccion_cliente }}</p>
             <p>${{ $pedido->precio_total }}</p>
+
             <div class="pedidoID" id="pedido{{ $pedido->id }}">
                 <p style="float:left;">Cliente: {{ $pedido->nombre_cliente }}</p>
                 <p class="close_pedido" id="close{{ $pedido->id }}">[x]cerrar</p>
@@ -35,7 +38,6 @@
                                         <th>Product</th>
                                         <th></th>
                                         <th>Cantidad</th>
-                                        <th>Precio</th>
                                         <th>Descripción</th>
                                     </tr>
                                 </thead>
@@ -46,7 +48,6 @@
                                         <td>{{ $product->name }}</td>
                                         <td><img src="{{ $product->img }}" alt="{{ $product->name }}" style="height:20px !important;"></td>
                                         <td>{{ $product->cantidad }}</td>
-                                        <td>{{ $product->price }}</td>
                                         <td>{{ $product->description }}</td>
                                     </tr>
                                     @endforeach
@@ -61,7 +62,7 @@
 
             <div class="btn-pedido">
                 <a id="open{{ $pedido->id }}" class="btn-transparent">Ver</a>
-                <a class="btn-estado">RECIBIR</a>
+                <a class="btn-estado" id="status{{ $pedido->id }}" data-id="{{ $pedido->id }}" data-status="{{ $pedido->estado }}">{{ $pedido->estado }}</a>
             </div>
             <script>
                 $("body").on("click", "#close{{ $pedido->id }}", function() {
@@ -72,6 +73,37 @@
                     let pedido = $('#pedido{{ $pedido->id }}');
                     pedido.slideDown('slow');
                 });
+                $("body").on("click", "#status{{ $pedido->id }}", function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    let changeStatus = $('#status{{ $pedido->id }}');
+                    changeStatus.addClass('button is-loading');
+                    $.ajax({
+                        type: "POST", // la variable type guarda el tipo de la peticion GET,POST,..
+                        url: "{{ route('pedido.status') }}", //url guarda la ruta hacia donde se hace la peticion
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            id: changeStatus.attr('data-id'),
+                            status: changeStatus.attr('data-status'),
+                        }, // data recive un objeto con la informacion que se enviara al servidor
+                        success: function(datos) { //success es una funcion que se utiliza si el servidor retorna informacion
+                            console.log(datos);
+                            changeStatus.removeClass('button is-loading');
+                            changeStatus.text(datos);
+                            changeStatus.attr('data-status', datos);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    }).fail(function(jqXHR, textStatus, error) {
+                        // Handle error here
+                        console.log(jqXHR.responseText);
+                    });
+                });
+
+                // function changeStatus(estado, id) {
+                // onclick="changeStatus('{{ $pedido->estado }}','{{ $pedido->id }}')"
+                // };
             </script>
 
 
@@ -80,6 +112,8 @@
 
     </div>
     @endif
+    <hr>
+    <h2>Productos</h2>
 
     <div class='columns is-mobile is-gapless is-multiline products'>
         @if(Auth::user()->role_id==2)

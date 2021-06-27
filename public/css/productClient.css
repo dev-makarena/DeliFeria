@@ -101,6 +101,7 @@
     padding: 4px;
     overflow: auto;
     font-size: 12px;
+    z-index: 9999;
 }
 
 .pedidoID .table {
@@ -125,6 +126,7 @@
     bottom: 0;
     right: 0;
     padding: 2px;
+    display: inline-flex;
 }
 
 .btn-estado {

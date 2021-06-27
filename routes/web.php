@@ -70,3 +70,4 @@ Route::get('/productget', [App\Http\Controllers\ProductController::class, 'getPr
 Route::get('/productedit', [App\Http\Controllers\ProductController::class, 'editProduct'])->name('product.edit');
 
 Route::post('/pedidoadd', [App\Http\Controllers\pedidosController::class, 'addPedido'])->name('pedido.add');
+Route::post('/pedidostatus', [App\Http\Controllers\pedidosController::class, 'statusPedido'])->name('pedido.status');

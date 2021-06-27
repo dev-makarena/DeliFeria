@@ -69,24 +69,38 @@ class pedidosController extends Controller
         // return view('vendedor', compact('resp'));
     }
 
-    public function editPedido(Request $request)
+    public function statusPedido(Request $request)
     {
-        $id = $request->input('idinput');
+        $id = $request->id;
+        $status = $request->input('status');
+        switch ($status) {
+            case "activo":
+                $status = "recibido";
+                break;
+            case "recibido":
+                $status = "en camino";
+                break;
+            case "en camino":
+                $status = "rechazado";
+                break;
+            case "rechazado":
+                $status = "eliminado";
+                break;
+            case "eliminado":
+                $status = "activo";
+                break;
+            case "suspendido":
+                $status = "activo";
+                break;
+            default:
+                $status = "suspendido";
+        }
 
         $resp =   DB::table('pedidos')
             ->where('id', '=', $id)
             ->update([
-                // "id" => $id,
-                // "id_seller" => Auth::user()->id,
-                "name" => $request->input('name'),
-                "description" => $request->input('description'),
-                "price" => $request->input('price'),
-                "img_url" => $request->input('img_url'),
-                // "active" => "$request->input('active')",
-                // "order" => $request->input('order'),
+                "estado" => $status,
             ]);
-
-        dd($request->input('name'));
-        return redirect('zonavendedor')->with('variable_en_vista', $request);
+        return $status;
     }
 }
