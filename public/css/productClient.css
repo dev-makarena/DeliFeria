@@ -12,7 +12,6 @@
 }
 
 .products .column div:first-child {
-    border: 1px solid gray;
     height: 100%;
     width: 100%;
     opacity: 0.8;
@@ -81,12 +80,13 @@
 }
 
 .slick-track>div {
-    background-color: rgba(29, 44, 173, 0.171);
-    color: rgb(29, 0, 0);
+    background-color: rgba(13, 20, 102, 0.514);
+    color: rgb(255, 255, 255);
     margin: 10px;
     padding: 10px;
     height: 200px;
     position: relative;
+    border-radius: 7px;
 }
 
 .pedidoID {

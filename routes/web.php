@@ -33,7 +33,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $data = Product::orderBy('id', 'desc')->get();
-    $pedidos = Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+
+    if (Auth::user()->role_id == 2) {
+        $pedidos = Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+    }
+    if (Auth::user()->role_id == 1) {
+        $pedidos = Pedidos::where('id_cliente', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+    }
 
     // $pedidos = Pedidos::where('id', '=', '')->orderBy('id', 'desc')->get();
     return view('dashboard', compact('data', 'pedidos'));
@@ -54,7 +60,7 @@ Route::get('/upd', function () {
 Route::get('/test', function () {
     // return DB::table('products')->get();
     // return Pedidos::all();
-    return Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+    // return Pedidos::where('id_vendedor', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
     // return DB::table('users')
     //     ->where('id', '=', 2)
     //     ->update([
@@ -71,3 +77,4 @@ Route::get('/productedit', [App\Http\Controllers\ProductController::class, 'edit
 
 Route::post('/pedidoadd', [App\Http\Controllers\pedidosController::class, 'addPedido'])->name('pedido.add');
 Route::post('/pedidostatus', [App\Http\Controllers\pedidosController::class, 'statusPedido'])->name('pedido.status');
+Route::post('/pedidodelete', [App\Http\Controllers\pedidosController::class, 'deletePedido'])->name('pedido.delete');

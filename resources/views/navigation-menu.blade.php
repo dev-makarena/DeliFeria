@@ -222,7 +222,8 @@
 
             </div>
         </div>
-        <a class="btn-solid" onclick="limpiarCarrito()">Limpiar</a> <a class="btn-solid" onclick="pagar()">Pagar</a>
+        <a class="btn-solid" onclick="limpiarCarrito()">Limpiar</a>
+        <a class="btn-solid" onclick="pagar()">Pagar</a>
     </div>
 </div>
 
@@ -262,7 +263,7 @@
                 '<p><strong>Cantidad:</strong><span>' + producto.cantidad + '</span></p>';
         }
 
-        html = html + '<br><p><strong>Total a Pagar :</strong><span> $' + precio.toLocaleString().split(',')[0] + '</span></p>';
+        html = html + '<br><p id="totalpagar" data-total="' + precio.toLocaleString().split(',')[0] + '"><strong>Total a Pagar :</strong><span> $' + precio.toLocaleString().split(',')[0] + '</span></p>';
 
         $('#productInfo').html(html);
 
@@ -280,9 +281,9 @@
             // $table->json('productos');
             "id_client": '{{ Auth::user()->id }}',
             "name_client": '{{ Auth::user()->name }}',
-            "direction_client": 'avenida siempre viva',
+            "direction_client": '{{ Auth::user()->direction_client }}',
             "id_vendedor": '2',
-            "precio_total": "200",
+            "precio_total": $('#totalpagar').attr("data-total"),
             "estado": "activo",
             "products": products_list,
         }];
@@ -296,6 +297,8 @@
             }, // data recive un objeto con la informacion que se enviara al servidor
             success: function(datos) { //success es una funcion que se utiliza si el servidor retorna informacion
                 alert("pedido completado");
+                limpiarCarrito();
+                location.reload();
             },
             error: function(error) {
                 console.log(error);

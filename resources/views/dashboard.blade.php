@@ -9,12 +9,115 @@
         </img>
     </div>
 
+    @if(Auth::user()->role_id==1)
+    <h2>Pedidos</h2>
+    <div class="pedidos">
+        @forelse ($pedidos as $pedido)
+
+
+        <div class="slide-pedidos" id="slidePedido{{ $pedido->id }}">
+            <p>{{ $pedido->id }}</p>
+            <p>{{ $pedido->nombre_cliente }}</p>
+            <p><strong>{{ $pedido->estado }}</strong></p>
+            <p>{{ $pedido->created_at }}</p>
+            <p>{{ $pedido->direccion_cliente }}</p>
+            <p>${{ $pedido->precio_total }}</p>
+
+            <div class="pedidoID" id="pedido{{ $pedido->id }}">
+                <p style="float:left;">Cliente: {{ $pedido->nombre_cliente }}</p>
+                <p class="close_pedido" id="close{{ $pedido->id }}">[x]cerrar</p>
+                <hr>
+                <div class="columns">
+                    <div class="column">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th></th>
+                                        <th>Cantidad</th>
+                                        <th>Descripción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(json_decode($pedido->productos,false) as $product)
+
+                                    <tr>
+                                        <td>{{ $product->name }}</td>
+                                        <td><img src="{{ $product->img }}" alt="{{ $product->name }}" style="height:20px !important;"></td>
+                                        <td>{{ $product->cantidad }}</td>
+                                        <td>{{ $product->description }}</td>
+                                    </tr>
+                                    @endforeach
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-pedido">
+                <a id="open{{ $pedido->id }}" class="btn-transparent">Ver</a>
+                <a class="btn-estado" id="delete{{ $pedido->id }}" data-id="{{ $pedido->id }}">Eliminar</a>
+            </div>
+            <script>
+                $("body").on("click", "#close{{ $pedido->id }}", function() {
+                    let pedido = $('#pedido{{ $pedido->id }}');
+                    pedido.slideUp('slow');
+                });
+                $("body").on("click", "#open{{ $pedido->id }}", function() {
+                    let pedido = $('#pedido{{ $pedido->id }}');
+                    pedido.slideDown('slow');
+                });
+                $("body").on("click", "#delete{{ $pedido->id }}", function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    let changeStatus = $('#delete{{ $pedido->id }}');
+                    changeStatus.addClass('button is-loading');
+                    $.ajax({
+                        type: "POST", // la variable type guarda el tipo de la peticion GET,POST,..
+                        url: "{{ route('pedido.delete') }}", //url guarda la ruta hacia donde se hace la peticion
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            id: changeStatus.attr('data-id'),
+                        }, // data recive un objeto con la informacion que se enviara al servidor
+                        success: function(datos) { //success es una funcion que se utiliza si el servidor retorna informacion
+                            $('#slidePedido{{ $pedido->id }}').parent().parent().attr("style", "background-color:red !important;");
+                            setTimeout(function() {
+                                $('#slidePedido{{ $pedido->id }}').parent().parent().hide('3000');
+
+                            }, 1000);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    }).fail(function(jqXHR, textStatus, error) {
+                        // Handle error here
+                        console.log(jqXHR.responseText);
+                    });
+                });
+
+                // function changeStatus(estado, id) {
+                // onclick="changeStatus('{{ $pedido->estado }}','{{ $pedido->id }}')"
+                // };
+            </script>
+
+
+        </div>
+        @empty
+        <p>Sin pedidos</p>
+        @endforelse
+
+    </div>
+    @endif
 
 
     @if(Auth::user()->role_id==2)
     <h2>Pedidos</h2>
     <div class="pedidos">
-        @foreach ($pedidos as $pedido)
+        @forelse ($pedidos as $pedido)
 
 
         <div class="slide-pedidos">
@@ -108,7 +211,9 @@
 
 
         </div>
-        @endforeach
+        @empty
+        <p>Sin pedidos</p>
+        @endforelse
 
     </div>
     @endif
@@ -125,14 +230,14 @@
         </div>
         @endif
         @foreach ($data as $product)
-        <div class='column is-2-fullhd is-2-desktop  is-4-tablet  is-4-mobile '>
+        <div class='column is-3-fullhd is-3-desktop  is-6-tablet  is-6-mobile '>
 
             <div class="product-on">
-                <div class="product-img">
+                <div class="product-img" style="padding-bottom:30px;">
                     <div style="width:100%;height:100px;">
                         <img class="centrar" src="{{ $product->img_url }}" height="100%" alt="">
                     </div>
-                    <p class="text-center">{{ $product->name }}</p>
+                    <p class="text-center"><strong>{{ $product->name }}</strong></p>
                     <p class="text-center" style="height: 32px; overflow: hidden;">{{ $product->description }}</p>
                     <a onclick="cargarVer('{{ $product->id }}')" class="btn-ver">Ver</a>
                     @if(Auth::user()->role_id==2)

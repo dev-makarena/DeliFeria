@@ -53,20 +53,19 @@ class pedidosController extends Controller
 
     public function deletePedido(Request $request)
     {
-        $idDelete = $request->input('idDelete');
+        $id = $request->id;
         $resp = DB::table('pedidos')
-            ->select('products.*')
-            ->Where('products.id', '=', $idDelete)->delete();
+            ->select('pedidos.*')
+            ->Where('pedidos.id', '=', $id)->delete();
 
         if ($resp == 1) {
-            $resp == "borrado";
+            $resp == "Pedido eliminado!";
         } else {
             $resp == "error al borrar";
         }
 
 
-        return redirect()->back();
-        // return view('vendedor', compact('resp'));
+        return $resp;
     }
 
     public function statusPedido(Request $request)
@@ -83,17 +82,11 @@ class pedidosController extends Controller
             case "en camino":
                 $status = "rechazado";
                 break;
-            case "rechazado":
-                $status = "eliminado";
-                break;
-            case "eliminado":
-                $status = "activo";
-                break;
             case "suspendido":
                 $status = "activo";
                 break;
             default:
-                $status = "suspendido";
+                $status = "activo";
         }
 
         $resp =   DB::table('pedidos')
