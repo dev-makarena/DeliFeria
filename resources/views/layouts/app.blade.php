@@ -68,7 +68,15 @@
 
     @livewireScripts
 
+    <div class='columns is-mobile is-gapless is-multiline footcuidemonos'>
 
+        <div class='column is-12-fullhd is-12-desktop  is-12-tablet  is-12-mobile  text-center py-6'>
+            <p>Cuidemonos <strong>todos</strong></p>
+            <img src="{{ url('image/logo-2.png') }}" style="width:300px; display:block; margin:0 auto;" alt="">
+            <p>2021</p>
+        </div>
+
+    </div>
 </body>
 
 </html>

@@ -14,7 +14,7 @@
 .products .column div:first-child {
     height: 100%;
     width: 100%;
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .products .column div:hover {
@@ -175,10 +175,11 @@
 
 .globalMensajes {
     width: 100%;
-    height: 350px;
+    height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
+    resize: vertical;
 }
 
 .globalMensajes div {

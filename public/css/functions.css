@@ -47,7 +47,6 @@
     cursor: pointer !important;
     outline: none !important;
     border: 1px solid var(--color-b) !important;
-
 }
 
 .btn-square:hover {
@@ -96,9 +95,14 @@
     padding-right: 13vw;
 }
 
+.py-7 {
+    padding-top: 7rem!important;
+    padding-bottom: 7rem!important;
+}
+
 ._title-1 {
-    font-size: 45px;
-    line-height: 50px;
+    font-size: 80px;
+    line-height: 80px;
 }
 
 ._title-2 {
@@ -171,4 +175,13 @@
     ._title-1 br {
         display: none !important;
     }
+}
+
+.footcuidemonos * {
+    background-color: #3e5217;
+    color: white;
+}
+.footcuidemonos.is-gapless>.column:first-child {
+    padding-top: 3rem!important;
+    padding-bottom: 3rem!important;
 }

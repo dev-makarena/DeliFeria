@@ -1,0 +1,54 @@
+.intro {
+    width: 100%;
+    height: fit-content;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.747), rgba(0, 0, 0, 0.747)), url('https://assets.eldesconcierto.cl/2020/07/A_UNO_1193422-1024x566.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+.delivery {
+    background-color: black;
+    color: white;
+}
+
+.delivery.is-gapless:not(:last-child) {
+    margin-bottom: 0;
+}
+
+@media(max-width:769px) {
+    .delivery.is-gapless>.column:first-child {
+        padding-top: 3rem!important;
+        padding-bottom: 3rem!important;
+    }
+    .delivery.is-gapless>.column:first-child img {
+        border-radius: 50%;
+    }
+    .delivery.is-gapless>.column:last-child img {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.comprar {
+    background-color: black;
+    color: white;
+}
+
+.comprar.is-gapless:not(:last-child) {
+    margin-bottom: 0;
+}
+
+@media(max-width:769px) {
+    .comprar.is-gapless>.column:last-child {
+        padding-top: 3rem!important;
+        padding-bottom: 3rem!important;
+    }
+    .comprar.is-gapless>.column:first-child img {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+}
