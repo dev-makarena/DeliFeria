@@ -3,6 +3,10 @@ html {
     width: 100%;
 }
 
+.min-h-screen {
+    min-height: 70vh;
+}
+
 body {
     /*
      padding-top: 10px;

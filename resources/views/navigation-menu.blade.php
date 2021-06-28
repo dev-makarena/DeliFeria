@@ -117,7 +117,7 @@
                     </x-jet-dropdown>
                 </div>
                 @if(Auth::user()->role_id==1)
-                <img src="image/carrito.png" alt="Carrito Compras" width="30" height="30" onclick="verCarrito()" />
+                <img src="{{ url('image/carrito.png') }}" alt="Carrito Compras" width="30" height="30" onclick="verCarrito()" />
                 @endif
             </div>
 

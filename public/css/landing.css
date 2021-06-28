@@ -6,6 +6,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
+    background-attachment: fixed;
+
 }
 
 .delivery {
@@ -17,13 +19,14 @@
     margin-bottom: 0;
 }
 
+.delivery.is-gapless>.column:first-child img {
+    border-radius: 50%;
+}
+
 @media(max-width:769px) {
     .delivery.is-gapless>.column:first-child {
         padding-top: 3rem!important;
         padding-bottom: 3rem!important;
-    }
-    .delivery.is-gapless>.column:first-child img {
-        border-radius: 50%;
     }
     .delivery.is-gapless>.column:last-child img {
         width: 100%;

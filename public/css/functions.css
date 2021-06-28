@@ -181,7 +181,18 @@
     background-color: #3e5217;
     color: white;
 }
+
 .footcuidemonos.is-gapless>.column:first-child {
     padding-top: 3rem!important;
     padding-bottom: 3rem!important;
+    margin: 0;
+}
+
+.carpet {
+    background-color: var(--color-b);
+    color: var(--color-a);
+    width: max-content;
+    padding: 5px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }

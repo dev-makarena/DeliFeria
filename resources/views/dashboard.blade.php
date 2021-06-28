@@ -1,11 +1,11 @@
 <x-app-layout>
 
-    <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-        <img src="{{ url('image/logo-2.png') }}" style="filter: opacity(.2);" width="100px"></img>
+    <div class="pt-6 pb-3 px-6">
+        <a href="{{ url('home') }}" class="btn-solid">Volver</a>
     </div>
-
+    <p class="sub-square my-6">El puesto de <strong>{{ $user->name }}</strong></p>
     @if(Auth::user()->role_id==1)
-    <h2>Pedidos</h2>
+    <h2 class="carpet">Pedidos</h2>
     <div class="pedidos">
         @forelse ($pedidos as $pedido)
 
@@ -54,7 +54,7 @@
             </div>
 
             <div class="btn-pedido">
-                <a id="open{{ $pedido->id }}" class="btn-transparent">Ver</a>
+                <a id="open{{ $pedido->id }}" class="btn-square">Ver</a>
                 <a class="btn-estado" id="delete{{ $pedido->id }}" data-id="{{ $pedido->id }}">Eliminar</a>
             </div>
             <script>
@@ -102,7 +102,7 @@
 
         </div>
         @empty
-        <p>Sin pedidos</p>
+        <p>¿Aún no pides nada?</p>
         @endforelse
 
     </div>
@@ -114,7 +114,7 @@
 
 
         <div class='column is-6-fullhd is-6-desktop  is-12-tablet  is-12-mobile'>
-            <h2>Mensajes</h2> <br>
+            <h2 class="carpet">Mensajes</h2> <br>
             <p id="messageInfo" style="color: black;
                     text-align: left;
                     font-weight: 900;">{{ session('info') }}</p>
@@ -136,7 +136,7 @@
             </div>
         </div>
         <div class='column is-6-fullhd is-6-desktop  is-12-tablet  is-12-mobile'>
-            <h3>Mensajes enviados</h3>
+            <h3 class="carpet">Mensajes enviados</h3>
             <div class="globalMensajes">
                 @foreach($mensajes as $mensaje)
                 <div>
@@ -151,7 +151,7 @@
 
 
 
-    <h2>Pedidos</h2>
+    <h2 class="carpet">Pedidos</h2>
     <div class="pedidos">
         @forelse ($pedidos as $pedido)
 

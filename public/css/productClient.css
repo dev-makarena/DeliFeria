@@ -1,4 +1,6 @@
-.products {}
+.products {
+    margin-bottom: 0 !important;
+}
 
 .products.is-gapless>.column {
     height: min-content;
@@ -80,8 +82,13 @@
 }
 
 .slick-track>div {
-    background-color: rgb(247, 166, 46);
-    color: rgb(255, 255, 255);
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.747), rgba(0, 0, 0, 0.747)), url('https://assets.eldesconcierto.cl/2020/07/A_UNO_1193422-1024x566.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover; */
+    box-shadow: 0px 0px 9px -6px black;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     margin: 10px;
     padding: 10px;
     height: 250px;
@@ -179,13 +186,17 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
+    padding-left: 0;
     resize: vertical;
+    background-color: rgb(135, 179, 34);
+    border-radius: 3px
 }
 
 .globalMensajes div {
     background-color: rgb(250, 250, 250);
     color: rgb(0, 0, 0);
-    margin: 10px;
+    margin: 5px;
+    margin-bottom: 5px;
     width: 100% !important;
     height: max-content !important;
     padding: 5px;
@@ -203,4 +214,12 @@
 
 .globalMensajes .mensaje {
     font-size: 14px;
+}
+
+.sms-enviados {
+    background-color: rgb(135, 179, 34);
+    color: white;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }

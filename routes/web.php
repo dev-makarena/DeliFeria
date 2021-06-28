@@ -21,14 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $user = Auth::user();
-    if (isset($user)) {
-        if ($user->esVendedor()) {
-            echo "Eres Vendedor";
-        } else {
-            echo "Eres Cliente";
-        }
-    }
+    // $user = Auth::user();
+    // if (isset($user)) {
+    //     if ($user->esVendedor()) {
+    //         echo "Eres Vendedor";
+    //     } else {
+    //         echo "Eres Cliente";
+    //     }
+    // }
 
     return view('welcome');
 });
@@ -61,7 +61,10 @@ Route::get('/usr', function () {
 });
 
 Route::get('/upd', function () {
-    return DB::table('users')->get();
+    return DB::table('pedidos')->get();
+});
+Route::get('/pro', function () {
+    return DB::table('products')->get();
 });
 
 
