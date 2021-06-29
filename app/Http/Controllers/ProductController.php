@@ -38,7 +38,7 @@ class ProductController extends Controller
             "updated_at" => Carbon::now(),
         ]);
         $resp = "listo";
-        return redirect('dashboard');
+        return redirect()->back();
     }
 
     public function deleteProduct(Request $request)

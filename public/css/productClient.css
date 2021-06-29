@@ -237,3 +237,16 @@
     display: block;
     margin: 0 auto;
 }
+
+.consejo {
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.747), rgba(0, 0, 0, 0.747)), url('https://assets.eldesconcierto.cl/2020/07/A_UNO_1193422-1024x566.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+    height: 100% !important;
+    color: white;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}

@@ -6,6 +6,9 @@
     @if(Auth::user()->role_id==1)
     <div class="headerclient py-6 mb-6">
         <p class="sub-square text-center">El puesto de <strong>{{ $user->name }}</strong></p>
+        <script>
+            var idClient = "{{ $user->id }}";
+        </script>
     </div>
     <h2 class="carpet">Pedidos</h2>
     <div class="pedidos">
@@ -15,6 +18,7 @@
         <div class="slide-pedidos" id="slidePedido{{ $pedido->id }}">
             <p>{{ $pedido->id }}</p>
             <p>{{ $pedido->nombre_cliente }}</p>
+            <p>ID vendedor: {{ $pedido->id_vendedor }}</p>
             <p><strong>{{ $pedido->estado }}</strong></p>
             <p>{{ $pedido->created_at }}</p>
             <p>{{ $pedido->direccion_cliente }}</p>
@@ -56,6 +60,7 @@
             </div>
 
             <div class="btn-pedido">
+                <a class="btn-solid" style="background-color: blue">pagar</a>
                 <a id="open{{ $pedido->id }}" class="btn-square">Ver</a>
                 <a class="btn-estado" id="delete{{ $pedido->id }}" data-id="{{ $pedido->id }}">Eliminar</a>
             </div>
@@ -140,13 +145,15 @@
         <div class='column is-6-fullhd is-6-desktop  is-12-tablet  is-12-mobile'>
             <h3 class="carpet">Mensajes enviados</h3>
             <div class="globalMensajes">
-                @foreach($mensajes as $mensaje)
+                @forelse($mensajes as $mensaje)
                 <div>
                     <p class="fecha">{{ $mensaje->created_at }}</p>
                     <p class="para">{{ $mensaje->to }}</p>
                     <p class="mensaje">{{ $mensaje->message }}</p>
                 </div>
-                @endforeach
+                @empty
+
+                @endforelse
             </div>
         </div>
     </div>
@@ -162,8 +169,8 @@
             <p>{{ $pedido->id }}</p>
             <p>{{ $pedido->nombre_cliente }}</p>
             <p>id cliente:{{ $pedido->id_cliente }}</p>
-
-            <p>{{ $pedido->estado }}</p>
+            <p>Id vendedor: {{ $pedido->id_vendedor }}</p>
+            <p>ID vendedor: {{ $pedido->estado }}</p>
             <p>{{ $pedido->created_at }}</p>
             <p>{{ $pedido->direccion_cliente }}</p>
             <p>${{ $pedido->precio_total }}</p>

@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('home-space') }}">
+                    <a href="{{ url('/') }}">
                         <img src="{{ url('image/frutas.png') }}" width="65" height="100" />
                     </a>
                 </div>
@@ -223,46 +223,47 @@
             </div>
         </div>
         <a class="btn-solid" onclick="limpiarCarrito()">Limpiar</a>
-        <a class="btn-solid" onclick="pagar()">Completar pedido</a>
-        <!-- <div id="paypal-button-container"></div> -->
+        <br><br>
+        <a class="btn-solid" onclick="pagar(idClient)" id="completarPedido">Completar pedido</a>
+        <div id="paypal-button-container"></div>
     </div>
 </div>
 <script src="https://www.paypal.com/sdk/js?client-id=AacMOVOzR9wnDMogi6Wyodaxa8u9XYeD2yRhy6KX6Upt44NaTH9HjMA7ZVKtn0C8PKFFClVprp4Um6GG&locale=es_CL&components=buttons"></script>
 
 <script>
-    // paypal.Buttons({
-    //     style: {
-    //         layout: 'vertical',
-    //         color: 'blue',
-    //         shape: 'rect',
-    //         label: 'paypal'
-    //     },
-    //     createOrder: function(data, actions) {
-    //         return actions.order.create({
-    //             purchase_units: [{
-    //                 amount: {
-    //                     value: '0.1',
-    //                 }
-    //             }]
-    //         });
-    //     },
-    //     onApprove: function(data, actions) {
-    //         // This function captures the funds from the transaction.
-    //         return actions.order.capture().then(function(details) {
-    //             // This function shows a transaction success message to your buyer.
-    //             alert('Transanccion Completada ' + details.payer.name.given_name);
-    //             pagar();
-    //         });
-    //     },
-    //     onCancel: function(data) {
-    //         // Show a cancel page, or return to cart
-    //         alert('Transanccion Rechazada');
-    //     },
-    //     onError: function(err) {
-    //         // For example, redirect to a specific error page
-    //         alert('Transanccion Con Error');
-    //     }
-    // }).render('#paypal-button-container');
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'paypal'
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '0.1',
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            // This function captures the funds from the transaction.
+            return actions.order.capture().then(function(details) {
+                // This function shows a transaction success message to your buyer.
+                alert('Transanccion Completada ' + details.payer.name.given_name);
+                pagar();
+            });
+        },
+        onCancel: function(data) {
+            // Show a cancel page, or return to cart
+            alert('Transanccion Rechazada');
+        },
+        onError: function(err) {
+            // For example, redirect to a specific error page
+            alert('Transanccion Con Error');
+        }
+    }).render('#paypal-button-container');
 
     function limpiarCarrito() {
         localStorage.removeItem('carrito');
@@ -307,7 +308,7 @@
 
     }
 
-    function pagar() {
+    function pagar(idClient) {
         var products_list = JSON.parse(localStorage.getItem('carrito'));
         let productoss = [{
 
@@ -318,7 +319,7 @@
             "id_client": '{{ Auth::user()->id }}',
             "name_client": '{{ Auth::user()->name }}',
             "direction_client": '{{ Auth::user()->direction_client }}',
-            "id_vendedor": '2',
+            "id_vendedor": idClient,
             "precio_total": $('#totalpagar').attr("data-total"),
             "estado": "activo",
             "products": products_list,
@@ -335,6 +336,7 @@
                 localStorage.removeItem('carrito');
                 eg1CloseModal(`eg1_modal_carrito`);
                 location.reload();
+                $('#completarPedido').addClass('button is-loading');
             },
             error: function(error) {
                 console.log(error);

@@ -46,13 +46,14 @@ Route::get('/home', function () {
     }
     if (Auth::user()->role_id == 1) {
         $vendedores = User::where('role_id', '=', 2)->orderBy('id', 'desc')->get();
+        $pedidos = Pedidos::where('id_cliente', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
 
         $mensajes = MessageDeli::where('id_cliente', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
     }
 
 
 
-    return view('home-space', compact('vendedores', 'mensajes'));
+    return view('home-space', compact('vendedores', 'mensajes', 'pedidos'));
 })->name('home-space');
 
 
