@@ -3,8 +3,10 @@
     <div class="pt-6 pb-3 px-6">
         <a href="{{ url('home') }}" class="btn-solid">Volver</a>
     </div>
-    <p class="sub-square my-6">El puesto de <strong>{{ $user->name }}</strong></p>
     @if(Auth::user()->role_id==1)
+    <div class="headerclient py-6 mb-6">
+        <p class="sub-square text-center">El puesto de <strong>{{ $user->name }}</strong></p>
+    </div>
     <h2 class="carpet">Pedidos</h2>
     <div class="pedidos">
         @forelse ($pedidos as $pedido)
@@ -204,6 +206,8 @@
 
 
             <div class="btn-pedido">
+                <div id="paypal-button-container"></div>
+
                 <a id="open{{ $pedido->id }}" class="btn-transparent">Ver</a>
                 <a class="btn-square" onclick="sendMessage('{{ Auth::user()->id }}','{{ Auth::user()->name }}','{{ $pedido->id_cliente }}','{{ $pedido->nombre_cliente }}','{{ $pedido->id }}')">Mensaje</a>
                 <a class="btn-estado" id="status{{ $pedido->id }}" data-id="{{ $pedido->id }}" data-status="{{ $pedido->estado }}">{{ $pedido->estado }}</a>

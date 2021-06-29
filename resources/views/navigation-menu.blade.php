@@ -223,45 +223,46 @@
             </div>
         </div>
         <a class="btn-solid" onclick="limpiarCarrito()">Limpiar</a>
-        <div id="paypal-button-container" ></div>
+        <a class="btn-solid" onclick="pagar()">Completar pedido</a>
+        <!-- <div id="paypal-button-container"></div> -->
     </div>
 </div>
 <script src="https://www.paypal.com/sdk/js?client-id=AacMOVOzR9wnDMogi6Wyodaxa8u9XYeD2yRhy6KX6Upt44NaTH9HjMA7ZVKtn0C8PKFFClVprp4Um6GG&locale=es_CL&components=buttons"></script>
 
 <script>
-paypal.Buttons({
-  style: {
-    layout: 'vertical',
-    color:  'blue',
-    shape:  'rect',
-    label:  'paypal'
-  },
-  createOrder: function(data, actions) {
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: '0.1',
-          }
-        }]
-      });
-    },
-    onApprove: function(data, actions) {
-      // This function captures the funds from the transaction.
-      return actions.order.capture().then(function(details) {
-        // This function shows a transaction success message to your buyer.
-        alert('Transanccion Completada ' + details.payer.name.given_name);
-        pagar();
-      });
-    },
-    onCancel: function (data) {
-        // Show a cancel page, or return to cart
-        alert('Transanccion Rechazada');
-    },
-    onError: function (err) {
-      // For example, redirect to a specific error page
-      alert('Transanccion Con Error');
-    }
-}).render('#paypal-button-container');
+    // paypal.Buttons({
+    //     style: {
+    //         layout: 'vertical',
+    //         color: 'blue',
+    //         shape: 'rect',
+    //         label: 'paypal'
+    //     },
+    //     createOrder: function(data, actions) {
+    //         return actions.order.create({
+    //             purchase_units: [{
+    //                 amount: {
+    //                     value: '0.1',
+    //                 }
+    //             }]
+    //         });
+    //     },
+    //     onApprove: function(data, actions) {
+    //         // This function captures the funds from the transaction.
+    //         return actions.order.capture().then(function(details) {
+    //             // This function shows a transaction success message to your buyer.
+    //             alert('Transanccion Completada ' + details.payer.name.given_name);
+    //             pagar();
+    //         });
+    //     },
+    //     onCancel: function(data) {
+    //         // Show a cancel page, or return to cart
+    //         alert('Transanccion Rechazada');
+    //     },
+    //     onError: function(err) {
+    //         // For example, redirect to a specific error page
+    //         alert('Transanccion Con Error');
+    //     }
+    // }).render('#paypal-button-container');
 
     function limpiarCarrito() {
         localStorage.removeItem('carrito');

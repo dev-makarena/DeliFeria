@@ -7,11 +7,6 @@
         <div class='column is-6-fullhd is-6-desktop  is-12-tablet  is-12-mobile'>
             @if(Auth::user()->role_id==2)
             <h3 class="carpet">Mensajes enviados</h3>
-            @else
-            <h3 class="carpet">Mensajes recibidos</h3>
-            @endif
-
-
             <div class="globalMensajes">
                 @foreach($mensajes as $mensaje)
                 <div>
@@ -21,6 +16,21 @@
                 </div>
                 @endforeach
             </div>
+            @else
+            <h3 class="carpet">Mensajes recibidos</h3>
+            <div class="globalMensajes">
+                @foreach($mensajes as $mensaje)
+                <div>
+                    <p class="fecha">{{ $mensaje->created_at }}</p>
+                    <p class="para">{{ $mensaje->from }}</p>
+                    <p class="mensaje">{{ $mensaje->message }}</p>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
+
+
         </div>
         <div class='column is-6-fullhd is-6-desktop  is-12-tablet  is-12-mobile'>
             @if(Auth::user()->role_id==1)
