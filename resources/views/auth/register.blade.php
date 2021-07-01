@@ -20,6 +20,20 @@
             </div>
 
             <div class="mt-4">
+                <x-jet-label for="name" value="{{ __('Dirección') }}" />
+                <x-jet-input id="direccion" class="block mt-1 w-full" type="text" name="direccion" :value="old('direccion')" required autofocus />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="name" value="{{ __('Tipo de usuario') }}" />
+                <select name="rol" id="rol" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" wire:model.debounce.800ms="organization_id">
+                    <option value="" default>Selecciona Tipo ...</option>
+                    <option value="1">Cliente</option>
+                    <option value="2">Vendedor</option>
+                </select>
+            </div>
+
+            <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Contraseña') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
