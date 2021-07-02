@@ -60,7 +60,7 @@
             </div>
 
             <div class="btn-pedido">
-                <a class="btn-solid" style="background-color: blue">pagar</a>
+
                 <a id="open{{ $pedido->id }}" class="btn-square">Ver</a>
                 <a class="btn-estado" id="delete{{ $pedido->id }}" data-id="{{ $pedido->id }}">Eliminar</a>
             </div>
@@ -350,7 +350,7 @@
                     <img src="" alt="" id="imgInfo" class="centrar">
                     <p><strong>Descripción:</strong><span id="descriptionInfo"></span></p>
                     @if(Auth::user()->role_id==1)
-                    <input type="number" name="cantidad" id="cantidad" placeholder="cantidad" style="margin:10px 0 10px 0" size>
+                    <input type="number" name="cantidad" id="cantidad" min="1" max="10" placeholder="1" style="margin:10px 0 10px 0" size>
                     <a class="btn-solid" onclick="agregarCarrito()">Agregar</a>
                     @endif
                     @if(Auth::user()->role_id==2)
